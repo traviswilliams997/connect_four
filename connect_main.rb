@@ -1,5 +1,6 @@
 class Game 
-
+  attr_accessor :board
+  
   def initialize
     @board = create_board
     @player_one = Player.new
@@ -7,8 +8,7 @@ class Game
   end
 
   def create_board 
-    [
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+    [{col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
         {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
         {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
         {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
@@ -23,6 +23,18 @@ class Game
         puts ""
       end
   end
+  def update_board_positon(column, letter)
+    
+    @board.reverse_each {|row|     
+        if row[:"col#{column}"] == 'O'
+            row[:"col#{column}"] = letter
+            return
+        end
+    }
+
+   
+  end
+  
 end
 
 class Player
@@ -32,6 +44,8 @@ class Player
     end
 end
 
-new_game = Game.new
-
-new_game.print_board
+#new_game = Game.new
+#new_game.print_board
+#new_game.update_board_positon(5,'B')
+#puts ""
+#new_game.print_board
