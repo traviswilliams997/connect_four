@@ -57,7 +57,18 @@ class Game
     self.print_board
     return self.game_over?
   end
-  def is_full?
+  
+  def game_over? 
+    return true if check_draw
+    return true if check_horizontal
+    return true if check_vertical
+    return true if check_right_diagonal
+    return true if check_left_diagonal
+    return false
+  end
+
+private
+def is_full?
     is_full = true
 
     @board.each do |row|
@@ -69,16 +80,13 @@ class Game
       end
    return is_full
   end 
-
-  def game_over? 
-    return true if check_horizontal
-    return true if check_vertical
-    return true if check_right_diagonal
-    return true if check_left_diagonal
+  def check_draw 
+    if is_full
+      puts "Round is a draw!"
+      return true
+    end
     return false
   end
-
-private
   def check_horizontal
     has_won = [false]
     count = {player1: 0, player2: 0}
