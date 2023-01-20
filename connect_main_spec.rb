@@ -116,7 +116,7 @@ RSpec.describe Game do
 
     end
 
-    describe '#game_over?' do
+    describe '#round_over?' do
        subject(:game_over_game) { described_class.new }
         
        context 'when player has won horizontally on first row' do
