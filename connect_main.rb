@@ -33,19 +33,19 @@ class Game
     }
   end
 
-  def game_loop
-    game_over = false
+  def round_loop
+    round_over = false
     count = 0 
     loop do
       if count == 0
        self.print_board
       end
-      game_over = self.player_turn(@player_one, 1, 'A')
-      puts "Game over!" if game_over
-      return  if game_over
-      game_over = self.player_turn(@player_two, 2, 'B')
-      puts "Game over!" if game_over
-      return  if game_over
+      round_over = self.player_turn(@player_one, 1, 'A')
+      puts "Game over!" if round_over
+      return  if round_over
+      round_over = self.player_turn(@player_two, 2, 'B')
+      puts "Game over!" if round_over
+      return  if round_over
       count += 1
   end
 
@@ -55,10 +55,10 @@ class Game
     column_selection = player.get_column
     self.update_board_positon(column_selection, letter)
     self.print_board
-    return self.game_over?
+    return self.round_over?
   end
   
-  def game_over? 
+  def round_over? 
     return true if check_draw
     return true if check_horizontal
     return true if check_vertical
