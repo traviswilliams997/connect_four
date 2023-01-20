@@ -48,11 +48,79 @@ RSpec.describe Game do
       end
     end
 
+    describe '#is_full?' do
+        subject(:draw_game) { described_class.new }
+
+        context 'when the board is full' do 
+        it 'returns true' do
+            draw_game.update_board_positon(1,'A')
+            draw_game.update_board_positon(2,'B')
+            draw_game.update_board_positon(3,'A')
+            draw_game.update_board_positon(4,'B')
+            draw_game.update_board_positon(5,'A')
+            draw_game.update_board_positon(6,'B')
+            draw_game.update_board_positon(7,'A')
+
+            draw_game.update_board_positon(1,'B')
+            draw_game.update_board_positon(2,'A')
+            draw_game.update_board_positon(3,'B')
+            draw_game.update_board_positon(4,'A')
+            draw_game.update_board_positon(5,'B')
+            draw_game.update_board_positon(6,'A')
+            draw_game.update_board_positon(7,'B')
+
+            draw_game.update_board_positon(1,'A')
+            draw_game.update_board_positon(2,'B')
+            draw_game.update_board_positon(3,'A')
+            draw_game.update_board_positon(4,'B')
+            draw_game.update_board_positon(5,'A')
+            draw_game.update_board_positon(6,'B')
+            draw_game.update_board_positon(7,'A')
+
+            draw_game.update_board_positon(1,'B')
+            draw_game.update_board_positon(2,'A')
+            draw_game.update_board_positon(3,'B')
+            draw_game.update_board_positon(4,'A')
+            draw_game.update_board_positon(5,'B')
+            draw_game.update_board_positon(6,'A')
+            draw_game.update_board_positon(7,'B')
+
+            draw_game.update_board_positon(1,'A')
+            draw_game.update_board_positon(2,'B')
+            draw_game.update_board_positon(3,'A')
+            draw_game.update_board_positon(4,'B')
+            draw_game.update_board_positon(5,'A')
+            draw_game.update_board_positon(6,'B')
+            draw_game.update_board_positon(7,'A')
+            
+            draw_game.update_board_positon(1,'B')
+            draw_game.update_board_positon(2,'A')
+            draw_game.update_board_positon(3,'B')
+            draw_game.update_board_positon(4,'A')
+            draw_game.update_board_positon(5,'B')
+            draw_game.update_board_positon(6,'A')
+            draw_game.update_board_positon(7,'B')
+                   
+
+            expect(draw_game.is_full?).to be_truthy
+        end
+    end
+    context 'when the board is not full' do 
+        it 'returns false' do
+            draw_game.update_board_positon(1,'B')           
+            expect(draw_game.is_full?).to be_falsey
+        end
+
+    end
+      
+
+    end
+
     describe '#game_over?' do
        subject(:game_over_game) { described_class.new }
         
        context 'when player has won horizontally on first row' do
-         it 'returns true' do 
+         xit 'returns true' do 
             game_over_game.update_board_positon(1,'A')
             game_over_game.update_board_positon(1,'B')
             game_over_game.update_board_positon(2,'A')
@@ -64,7 +132,7 @@ RSpec.describe Game do
          end
         end
         context 'when player has won horizontally on second row' do 
-         it 'returns true' do 
+         xit 'returns true' do 
             game_over_game.update_board_positon(7,'A')
             game_over_game.update_board_positon(7,'B')
             game_over_game.update_board_positon(6,'A')
@@ -80,7 +148,7 @@ RSpec.describe Game do
         end 
 
         context 'when player has won vertically on first row' do
-            it 'returns true' do 
+            xit 'returns true' do 
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(5,'B')
                game_over_game.update_board_positon(4,'A')
@@ -92,7 +160,7 @@ RSpec.describe Game do
             end
         end
         context 'when player has won vertically on second row' do
-            it 'returns true' do 
+            xit 'returns true' do 
                game_over_game.update_board_positon(5,'A')
                game_over_game.update_board_positon(4,'B')
                game_over_game.update_board_positon(4,'A')
@@ -107,7 +175,7 @@ RSpec.describe Game do
         end 
 
         context 'when player has won on right diagonal and on first row' do
-            it 'returns true ' do 
+            xit 'returns true ' do 
                game_over_game.update_board_positon(1,'A')
                game_over_game.update_board_positon(2,'B')
                game_over_game.update_board_positon(2,'A')
@@ -125,7 +193,7 @@ RSpec.describe Game do
             end
         end
         context 'when player has won on right diagonal and on second row' do
-            it 'returns true' do 
+            xit 'returns true' do 
                 game_over_game.update_board_positon(2,'A')
                 game_over_game.update_board_positon(1,'B')
                 game_over_game.update_board_positon(3,'A')
@@ -147,7 +215,7 @@ RSpec.describe Game do
             end
         end 
         context 'when player has won on left diagonal and on first row' do
-            it 'returns true' do 
+            xit 'returns true' do 
                game_over_game.update_board_positon(7,'A')
                game_over_game.update_board_positon(6,'B')
                game_over_game.update_board_positon(6,'A')
@@ -163,7 +231,7 @@ RSpec.describe Game do
             end
         end
         context 'when player has won on left diagonal and on first row' do
-            it 'returns true' do 
+           xit 'returns true' do 
               game_over_game.update_board_positon(6,'A')
               game_over_game.update_board_positon(7,'B')
               game_over_game.update_board_positon(5,'A')

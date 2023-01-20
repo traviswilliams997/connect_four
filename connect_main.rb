@@ -1,6 +1,6 @@
 class Game 
   attr_accessor :board
-    
+
   def initialize
     @board = create_board
     @player_one = Player.new
@@ -28,7 +28,7 @@ class Game
     @board.reverse_each {|row|     
         if row[:"col#{column}"] == 'O'
             row[:"col#{column}"] = letter
-            return
+            return 
         end
     }
   end
@@ -57,6 +57,18 @@ class Game
     self.print_board
     return self.game_over?
   end
+  def is_full?
+    is_full = true
+
+    @board.each do |row|
+        row.each {|key, value| 
+        if value == 'O' 
+            is_full = false
+        end
+    } 
+      end
+   return is_full
+  end 
 
   def game_over? 
     return true if check_horizontal
@@ -66,6 +78,7 @@ class Game
     return false
   end
 
+private
   def check_horizontal
     has_won = [false]
     count = {player1: 0, player2: 0}
@@ -197,9 +210,9 @@ private
     end
 #end of player class 
 end
-#=begin
+=begin
 new_game = Game.new
 new_game.game_loop
 
-#=end
+=end
 
