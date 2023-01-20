@@ -1,6 +1,6 @@
 class Game 
-  attr_accessor :board, :player_one
-  
+  attr_accessor :board
+    
   def initialize
     @board = create_board
     @player_one = Player.new
@@ -8,23 +8,23 @@ class Game
   end
 
   def create_board 
-    [{col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
-        {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'}
-        ]
+    [
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'},
+      {col1: 'O', col2: 'O', col3: 'O', col4: 'O', col5: 'O', col6: 'O', col7: 'O'}
+      ]
   end
 
   def print_board
-      @board.each do |row|
-        row.each {|key, value| print " #{value} " } 
-        puts ""
-      end
+    @board.each do |row|
+      row.each {|key, value| print " #{value} " } 
+      puts ""
+    end
   end
-  def update_board_positon(column, letter)
-    
+  def update_board_positon(column, letter)  
     @board.reverse_each {|row|     
         if row[:"col#{column}"] == 'O'
             row[:"col#{column}"] = letter
@@ -47,7 +47,7 @@ class Game
       puts "Game over!" if game_over
       return  if game_over
       count += 1
-    end
+  end
 
   end 
   def player_turn(player, num, letter)
@@ -64,153 +64,78 @@ class Game
     return true if check_right_diagonal
     return true if check_left_diagonal
     return false
-    
   end
+
   def check_horizontal
-    has_won = false
-    horizontal_count_player1 = 0
-    horizontal_count_player2 = 0
+    has_won = [false]
+    count = {player1: 0, player2: 0}
     @board.each do |row|
-        row.each {|key, value|
-            if value == 'A'
-              horizontal_count_player1 += 1
-              if horizontal_count_player1 == 4 
-                puts "Player 1 has won"
-                has_won = true
-                return has_won
-              end
-            elsif value != 'A'
-              horizontal_count_player1 = 0 
-            end
-
-            if value == 'B'
-                horizontal_count_player2 += 1
-                if horizontal_count_player2 == 4 
-                    puts "Player 2 has won"
-                    has_won = true
-                    return has_won
-                  end
-                elsif value != 'B'
-                horizontal_count_player2 = 0 
-              end
-
-             } 
-      end
-      return has_won
+        row.each {|key, value| check_count(value, count, has_won) } 
+    end
+    return has_won[0]
   end
   
   def check_vertical
-    has_won = false
-    vertical_count_player1 = 0
-    vertical_count_player2 = 0
+    has_won = [false]
+    count = {player1: 0, player2: 0}
     for col_num in 1..7 do
-        column = :"col#{col_num}"
-        @board.each do |row|
-          if row[column] == 'A'
-            vertical_count_player1 += 1
-            if vertical_count_player1 == 4 
-                puts "Player 1 has won"
-                has_won = true
-                return has_won
-            end
-            elsif row[column]  != 'A'  
-                vertical_count_player1 = 0 
-          end
-          if row[column] == 'B'
-            vertical_count_player2 += 1
-            if vertical_count_player2 == 4 
-                puts "Player 2 has won"
-                has_won = true
-                return has_won
-            end
-            elsif row[column]  != 'B'  
-                vertical_count_player2 = 0 
-          end
-        end 
+      column = :"col#{col_num}"
+      @board.each do |row|
+        value = row[column]
+        check_count(value, count, has_won)
+      end 
     end
-    return has_won
+    return has_won[0]
   end
 
   def check_right_diagonal
-    has_won = false
-    diagonal_count_player1 = 0
-    diagonal_count_player2 = 0 
+    has_won = [false]
+    count = {player1: 0, player2: 0}
+    #Offsets starting column
     for column_traversal in 1..4 do 
-      for traversal_count in 0..2
-        row_num = 5 - traversal_count
+      #Offsets starting row 
+      for row_traversal in 0..2
+        row_num = 5 - row_traversal
+        #For each row it shifts to next column on the right
         for i in 1..4 do
           col_num = column_traversal 
+          #Goes through each row from bottom to top
           while row_num >= 0 do     
             column = :"col#{col_num}"
             current_row = @board[row_num]  
             value = current_row[column]
-    
-            if col_num < 8 && value == 'A'
-              diagonal_count_player1 += 1        
-              if diagonal_count_player1 == 4 
-                puts "Player 1 has won"
-                has_won = true
-                return has_won
-             end
-            elsif col_num < 8 && value != 'A'
-              diagonal_count_player1 = 0
-            end
-            if col_num < 8 && value == 'B'
-              diagonal_count_player2 += 1            
-              if diagonal_count_player2 == 4 
-                puts "Player 2 has won"
-                has_won = true
-                return has_won
-              end
-            elsif col_num < 8 && value != 'B'
-              diagonal_count_player2 = 0
-            end
+            if col_num < 8 
+                check_count(value, count, has_won)
+            end          
             row_num -= 1
             col_num += 1
           end
         end
       end
     end
-    return has_won
+    return has_won[0]
   end
 
   def check_left_diagonal
-    has_won = false
-    diagonal_count_player1 = 0
-    diagonal_count_player2 = 0
+    has_won = [false]
+    count = {player1: 0, player2: 0}
     column_traversal = 7
+    #Offsets starting column
     while  column_traversal >= 4 do
-      for traversal_count in 0..2
-        row_num = 5 - traversal_count
+      #Offsets starting row 
+      for row_traversal in 0..2
+        row_num = 5 - row_traversal
+        #For each row it shifts to next column on the right
         for i in 1..4 do
           col_num = column_traversal 
-
+          #Goes through each row from bottom to top
           while row_num >= 0 do 
             column = :"col#{col_num}"
             current_row = @board[row_num]  
             value = current_row[column]
-          
-            if col_num > 0 && value == 'A'
-              diagonal_count_player1 += 1  
-                    
-              if diagonal_count_player1 == 4 
-                puts "Player 1 has won"
-                has_won = true
-                return has_won
-              end
-            elsif col_num > 0 && value != 'A'
-              diagonal_count_player1 = 0
-            end
-            if col_num > 0 && value == 'B'
-              diagonal_count_player2 += 1            
-              if diagonal_count_player2 == 4 
-                puts "Player 2 has won"
-                has_won = true
-                return has_won
-              end
-            elsif col_num > 0 && value != 'B'
-              diagonal_count_player2 = 0
-            end
+            if col_num > 0
+             check_count(value, count, has_won)
+            end 
             row_num -= 1
             col_num -= 1
           end
@@ -218,43 +143,59 @@ class Game
       end
       column_traversal -= 1
     end
-    return has_won
+    return has_won[0]
   end
+  def check_count(value, count, has_won)
+    if value == 'A'
+      count[:player1] += 1
+      if count[:player1] == 4 
+        puts "Player 1 has won this round"
+        has_won[0] = true
+        return has_won[0]
+      end
+    elsif value != 'A'
+      count[:player1] = 0 
+    end
 
-
+    if value == 'B'
+      count[:player2] += 1
+      if count[:player2] == 4 
+        puts "Player 2 has won this round"
+        has_won[0] = true
+        return has_won[0]
+      end
+    elsif value != 'B'
+      count[:player2] = 0 
+    end
+  end
 #end of game class 
 end
 
   
 
-
 class Player
+  def initialize
+    @score = 0
+  end
+  def get_column
+    is_verified = false
+    until is_verified do 
+      puts 'Choose a column between 1 and 7'
+      column_selection = gets.chomp
+      is_verified = verify_column_selection(column_selection)
+      return column_selection if is_verified
+      puts "Input error! Please enter a number between 1 and 7"
+    end
+  end
 
-    def initialize
-        @score = 0
-    end
-    def get_column
-        is_verified = false
-        until is_verified do 
-          puts 'Choose a column between 1 and 7'
-          column_selection = gets.chomp
-          is_verified = verify_column_selection(column_selection)
-          return column_selection if is_verified
-          puts "Input error! Please enter a number between 1 and 7"
-       end
-    end
- 
 private 
-    def verify_column_selection(column_selection)
-      if column_selection.to_i >= 1 && column_selection.to_i <= 7
-        return true 
-      end
+  def verify_column_selection(column_selection)
+    if column_selection.to_i >= 1 && column_selection.to_i <= 7
+      return true 
+    end
       false
     end
-  
-
-   #end of player class 
-
+#end of player class 
 end
 #=begin
 new_game = Game.new
