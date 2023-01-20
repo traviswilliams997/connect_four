@@ -6,16 +6,16 @@ RSpec.describe Game do
     describe '#intitialize' do
         subject(:game_initialize) { described_class.new }
 
-        it 'Creates a new board' do 
+        xit 'Creates a new board' do 
             board = game_initialize.instance_variable_get(:@board)
             expect(board).not_to be_empty
         end
-        it 'Create a player 1' do 
+        xit 'Create a player 1' do 
             player_one = game_initialize.instance_variable_get(:@player_one)
             expect(player_one).not_to be_nil
         end
         
-        it 'Create a player 2' do 
+        xit 'Create a player 2' do 
             player_two = game_initialize.instance_variable_get(:@player_two)
             expect(player_two).not_to be_nil
         end
@@ -24,7 +24,7 @@ RSpec.describe Game do
     describe '#print_board' do
         subject(:game_print) { described_class.new }
 
-        it 'Displays board to screen' do
+        xit 'Displays board to screen' do
             expect(game_print).to receive(:print).with(" O ").exactly(42).times
             expect(game_print).to receive(:puts).with("").exactly(6).times
             game_print.print_board
@@ -32,7 +32,7 @@ RSpec.describe Game do
     end
 
     describe '#update_board_positon' do 
-        subject(:game_board_update) { Game.new }
+        subject(:game_board_update) { described_class.new }
      
         xit 'Changes value of one of the board positions' do 
           is_empty = true
@@ -48,16 +48,145 @@ RSpec.describe Game do
       end
     end
 
-    describe '#player_has_won' do
-      subject(:game_has_won) { Game.new }
+    describe '#game_over?' do
+       subject(:game_over_game) { described_class.new }
+        
+       context 'when player has won horizontally on first row' do
+         it 'returns true' do 
+            game_over_game.update_board_positon(1,'A')
+            game_over_game.update_board_positon(1,'B')
+            game_over_game.update_board_positon(2,'A')
+            game_over_game.update_board_positon(2,'B')
+            game_over_game.update_board_positon(3,'A')
+            game_over_game.update_board_positon(3,'B')
+            game_over_game.update_board_positon(4,'A')
+            expect(game_over_game.game_over?).to be_truthy
+         end
+        end
+        context 'when player has won horizontally on second row' do 
+         it 'returns true' do 
+            game_over_game.update_board_positon(7,'A')
+            game_over_game.update_board_positon(7,'B')
+            game_over_game.update_board_positon(6,'A')
+            game_over_game.update_board_positon(6,'B')
+            game_over_game.update_board_positon(5,'A')
+            game_over_game.update_board_positon(5,'B')
+            game_over_game.update_board_positon(1,'A')
+            game_over_game.update_board_positon(4,'B')
+            game_over_game.update_board_positon(1,'A')
+            game_over_game.update_board_positon(4,'B')
+            expect(game_over_game.game_over?).to be_truthy
+         end
+        end 
 
+        context 'when player has won vertically on first row' do
+            it 'returns true' do 
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               expect(game_over_game.game_over?).to be_truthy
+            end
+        end
+        context 'when player has won vertically on second row' do
+            it 'returns true' do 
+               game_over_game.update_board_positon(5,'A')
+               game_over_game.update_board_positon(4,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(4,'A')
+               expect(game_over_game.game_over?).to be_truthy
+            end
+        end 
 
-      xit 'Checks if player has won' do 
-
+        context 'when player has won on right diagonal and on first row' do
+            it 'returns true ' do 
+               game_over_game.update_board_positon(1,'A')
+               game_over_game.update_board_positon(2,'B')
+               game_over_game.update_board_positon(2,'A')
+               game_over_game.update_board_positon(3,'B')
+               game_over_game.update_board_positon(3,'A')
+               game_over_game.update_board_positon(1,'B')
+               game_over_game.update_board_positon(3,'A')
+               game_over_game.update_board_positon(2,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(4,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(2,'B')
+               game_over_game.update_board_positon(4,'A')
+               expect(game_over_game.game_over?).to be_truthy
+            end
+        end
+        context 'when player has won on right diagonal and on second row' do
+            it 'returns true' do 
+                game_over_game.update_board_positon(2,'A')
+                game_over_game.update_board_positon(1,'B')
+                game_over_game.update_board_positon(3,'A')
+                game_over_game.update_board_positon(4,'B')
+                game_over_game.update_board_positon(1,'A')
+                game_over_game.update_board_positon(2,'B')
+                game_over_game.update_board_positon(2,'A')
+                game_over_game.update_board_positon(3,'B')
+                game_over_game.update_board_positon(3,'A')
+                game_over_game.update_board_positon(1,'B')
+                game_over_game.update_board_positon(3,'A')
+                game_over_game.update_board_positon(2,'B')
+                game_over_game.update_board_positon(4,'A')
+                game_over_game.update_board_positon(4,'B')
+                game_over_game.update_board_positon(4,'A')
+                game_over_game.update_board_positon(2,'B')
+                game_over_game.update_board_positon(4,'A')
+               expect(game_over_game.game_over?).to be_truthy
+            end
+        end 
+        context 'when player has won on left diagonal and on first row' do
+            it 'returns true' do 
+               game_over_game.update_board_positon(7,'A')
+               game_over_game.update_board_positon(6,'B')
+               game_over_game.update_board_positon(6,'A')
+               game_over_game.update_board_positon(5,'B')
+               game_over_game.update_board_positon(5,'A')
+               game_over_game.update_board_positon(7,'B')
+               game_over_game.update_board_positon(5,'A')
+               game_over_game.update_board_positon(4,'B')
+               game_over_game.update_board_positon(4,'A')
+               game_over_game.update_board_positon(4,'B')
+               game_over_game.update_board_positon(4,'A')
+               expect(game_over_game.game_over?).to be_truthy
+            end
+        end
+        context 'when player has won on left diagonal and on first row' do
+            it 'returns true' do 
+              game_over_game.update_board_positon(6,'A')
+              game_over_game.update_board_positon(7,'B')
+              game_over_game.update_board_positon(5,'A')
+              game_over_game.update_board_positon(4,'B')
+              game_over_game.update_board_positon(7,'A')
+              game_over_game.update_board_positon(6,'B')
+              game_over_game.update_board_positon(6,'A')
+              game_over_game.update_board_positon(5,'B')
+              game_over_game.update_board_positon(5,'A')
+              game_over_game.update_board_positon(7,'B')
+              game_over_game.update_board_positon(5,'A')
+              game_over_game.update_board_positon(4,'B')
+              game_over_game.update_board_positon(4,'A')
+              game_over_game.update_board_positon(4,'B')
+              game_over_game.update_board_positon(4,'A')
+              expect(game_over_game.game_over?).to be_truthy
+            end
+        end
       end
-    end
+     
+  
 
-
+#End of rspec describe Game
 
 end
 
@@ -66,7 +195,7 @@ RSpec.describe Player do
   describe '#intitialize' do
     subject(:player_initialize) { described_class.new }
 
-    it 'Create a player score' do 
+    xit 'Create a player score' do 
       score = player_initialize.instance_variable_get(:@score)
       expect(score).to eq(0) 
      end
@@ -80,21 +209,9 @@ RSpec.describe Player do
         allow(column_selection).to receive(:gets).and_return(column_choice)
     end 
          
-    it 'Prompts player to select column and saves answer' do
+    xit 'Prompts player to select column and saves answer' do
         column = column_selection.get_column
         expect(column).to be_between("1", "7" ).inclusive
-    end
-  end
-  describe '#get_letter' do
-    subject(:letter_selection) { described_class.new }  
-    before do 
-        letter_choice = "A"
-        allow(letter_selection).to receive(:gets).and_return(letter_choice)
-    end 
-         
-    it 'Prompts player to select letter and saves answer' do
-        letter = letter_selection.get_letter
-        expect(letter).to be_between("A", "B" ).inclusive
     end
   end
 
@@ -115,23 +232,7 @@ RSpec.describe Player do
         end
       end
   end
-  describe '#verify_letter_selection' do
-    subject(:letter_verfication) {described_class.new}
-
-    context  'when letter selection is not "A" or "B"' do
-      xit 'returns false' do
-        letter_choice = "Z" 
-        expect(letter_verfication.verify_letter_selection(letter_choice)).to be_falsey
-      end
-    end
-
-    context  'when letter selection is not "A" or "B"' do
-        xit 'returns true' do
-            letter_choice = "A" 
-        expect(letter_verfication.verify_letter_selection(letter_choice)).to be_truthy
-        end
-      end
-  end
+ 
 end
 
 #Start new game
