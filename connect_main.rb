@@ -41,10 +41,10 @@ class Game
        self.print_board
       end
       round_over = self.player_turn(@player_one, 1, 'A')
-      puts "Game over!" if round_over
+      puts "Round over!" if round_over
       return  if round_over
       round_over = self.player_turn(@player_two, 2, 'B')
-      puts "Game over!" if round_over
+      puts "Round over!" if round_over
       return  if round_over
       count += 1
   end
