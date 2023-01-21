@@ -2,7 +2,6 @@ require 'rspec'
 require_relative 'connect_main'
 
 RSpec.describe Game do
-
     describe '#intitialize' do
         subject(:game_initialize) { described_class.new }
 
@@ -239,7 +238,47 @@ RSpec.describe Game do
 
         end
       end
+     describe '#get_answer' do
+        subject(:answer_selection) { described_class.new } 
+
+   
+    context 'when answer selection is "Y"' do
+
+        before do 
+            answer_choice = "Y"
+            allow(subject).to receive(:gets).and_return(answer_choice)
+        end 
+        it 'Prompts player to input and saves answer' do
+          answer = subject.get_answer
+          expect(answer).to eq("Y")
+        end
+    end
+
+    context 'when answer selection is "N"' do
+
+        before do 
+            answer_choice = "N"
+            allow(subject).to receive(:gets).and_return(answer_choice)
+        end 
+        it 'Prompts player to input and saves answer' do
+          answer = subject.get_answer
+          expect(answer).to eq("N")
+        end
+    end
+    context 'when answer selection is not "Y" or "N' do
+        before do 
+            invalid_input = "9"
+            invalid_input_2 = "a"
+            valid_input = "Y"
+            allow(subject).to receive(:gets).and_return(invalid_input, invalid_input_2 ,valid_input)
+        end 
+        it 'calls error message' do
+            expect(subject).to receive(:error_message).twice
+            subject.get_answer       
+          end
+    end
      
+    end
   
 
 #End of rspec describe Game
@@ -262,7 +301,7 @@ RSpec.describe Player do
     subject(:column_selection_2) { described_class.new } 
 
    
-    context 'when player enters correct input' do
+    context 'when column selection is betwwen 1 and 7' do
 
         before do 
             column_choice = "5"
@@ -288,23 +327,7 @@ RSpec.describe Player do
 
   end
 
-  describe '#verify_column_selection' do
-    subject(:column_verfication) {described_class.new}
-
-    context  'when colunm selection is not between 1 and 7' do
-      xit 'returns false' do
-        column_choice = "9" 
-        expect(column_verfication.verify_column_selection(column_choice)).to be_falsey
-      end
-    end
-
-    context  'when colunm selection is  between 1 and 7' do
-        xit 'returns true' do
-          column_choice = "7" 
-        expect(column_verfication.verify_column_selection(column_choice)).to be_truthy
-        end
-      end
-  end
+  
  
 end
 
