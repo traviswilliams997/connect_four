@@ -107,7 +107,7 @@ class Game
       answer_selection = gets.chomp.upcase
       is_verified = verify_answer_selection(answer_selection)
       return answer_selection if is_verified
-      puts "Input error! Please enter a 'Y or 'N'"
+      self.error_message
     end
   end
 
@@ -247,6 +247,9 @@ def is_full?
       count[:player2] = 0 
     end
   end
+  def error_message
+    puts "Input error! Please enter 'Y' or 'N'"
+  end
 #end of game class 
 end
 
@@ -264,12 +267,15 @@ class Player
       column_selection = gets.chomp
       is_verified = verify_column_selection(column_selection)
       return column_selection if is_verified
-      puts "Input error! Please enter a number between 1 and 7"
+     self.error_message
     end
   end
 
 
 private 
+  def error_message
+    puts "Input error! Please enter a number between 1 and 7"
+  end
   def verify_column_selection(column_selection)
       if column_selection == '1' || column_selection == '2' || column_selection == '3' || column_selection == '4' || column_selection == '5' || column_selection == '6' || column_selection == '7' 
         return true 
@@ -279,6 +285,7 @@ private
   end
 #end of player class 
 end
+
 =begin
 new_game = Game.new
 new_game.game_loop
