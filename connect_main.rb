@@ -76,6 +76,9 @@ class Game
             puts "To win connect four pieces either horizonatally, vertically or diagonally"
             puts ""
             self.round_loop
+            puts "Player 1 score is #{@player_one.score}"
+            puts "Player 2 score is #{@player_two.score}"
+
             count += 1
         else
           answer = self.get_answer
@@ -85,6 +88,8 @@ class Game
           elsif answer == 'Y'
             self.reset_round
             self.round_loop
+            puts "Player 1 score is #{@player_one.score}"
+            puts "Player 2 score is #{@player_two.score}"
             count += 1
           end
         end
@@ -217,6 +222,7 @@ def is_full?
       count[:player1] += 1
       if count[:player1] == 4 
         puts "Player 1 has won this round"
+        @player_one.score += 1
         has_won[0] = true
         return has_won[0]
       end
@@ -228,6 +234,7 @@ def is_full?
       count[:player2] += 1
       if count[:player2] == 4 
         puts "Player 2 has won this round"
+        @player_two.score += 1
         has_won[0] = true
         return has_won[0]
       end
@@ -241,6 +248,7 @@ end
   
 
 class Player
+    attr_accessor :score
   def initialize
     @score = 0
   end
@@ -262,7 +270,6 @@ private
         return true 
       end
       
-    
       false
   end
 #end of player class 
