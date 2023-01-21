@@ -142,7 +142,8 @@ def is_full?
     has_won = [false]
     count = {player1: 0, player2: 0}
     @board.each do |row|
-        row.each {|key, value| check_count(value, count, has_won) } 
+        row.each {|key, value| check_count(value, count, has_won) 
+        } 
     end
     return has_won[0]
   end
@@ -178,11 +179,13 @@ def is_full?
             value = current_row[column]
             if col_num < 8 
                 check_count(value, count, has_won)
-            end          
+            end         
             row_num -= 1
             col_num += 1
           end
         end
+        count[:player1] = 0
+        count[:player2] = 0
       end
     end
     return has_won[0]
@@ -212,6 +215,8 @@ def is_full?
             col_num -= 1
           end
         end
+        count[:player1] = 0
+        count[:player2] = 0
       end
       column_traversal -= 1
     end
@@ -274,9 +279,9 @@ private
   end
 #end of player class 
 end
-#=begin
+=begin
 new_game = Game.new
 new_game.game_loop
 
-#=end
+=end
 
