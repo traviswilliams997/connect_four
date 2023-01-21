@@ -86,12 +86,16 @@ class Game
         if answer == 'N'
             run = false
         else
+            self.reset_round
             self.round_loop
             count += 1
         end
         end
     end
 
+  end
+  def reset_round
+    @board = create_board
   end
 
 private
