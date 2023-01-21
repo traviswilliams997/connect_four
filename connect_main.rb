@@ -78,18 +78,15 @@ class Game
             self.round_loop
             count += 1
         else
-            puts "Would you like to play again?"
-            puts "Enter 'Y' for yes or 'N' for no"
-            answer = gets.chomp.upcase
- 
-       
-        if answer == 'N'
+          answer = self.get_answer
+         
+          if answer == 'N'
             run = false
-        else
+          elsif answer == 'Y'
             self.reset_round
             self.round_loop
             count += 1
-        end
+          end
         end
     end
 
@@ -97,8 +94,26 @@ class Game
   def reset_round
     @board = create_board
   end
+  def get_answer
+    is_verified = false
+    until is_verified do 
+      puts "Would you like to play again?"
+      puts "Enter 'Y' for yes or 'N' for no"
+      answer_selection = gets.chomp.upcase
+      is_verified = verify_answer_selection(answer_selection)
+      return answer_selection if is_verified
+      puts "Input error! Please enter a 'Y or 'N'"
+    end
+  end
 
+  
 private
+def verify_answer_selection(answer_selection)
+    if answer_selection == 'Y' || answer_selection == 'N'
+      return true 
+    end
+      false
+  end
 def is_full?
     is_full = true
 
@@ -240,13 +255,14 @@ class Player
     end
   end
 
+
 private 
   def verify_column_selection(column_selection)
     if column_selection.to_i >= 1 && column_selection.to_i <= 7
       return true 
     end
       false
-    end
+  end
 #end of player class 
 end
 #=begin
