@@ -259,16 +259,33 @@ RSpec.describe Player do
   end
 
   describe '#get_column' do
-    subject(:column_selection) { described_class.new }  
-    before do 
-        column_choice = "5"
-        allow(subject).to receive(:gets).and_return(column_choice)
-    end 
-         
-    it 'Prompts player to select column and saves answer' do
-        column = subject.get_column
-        expect(column).to be_between("1", "7" ).inclusive
+    subject(:column_selection_2) { described_class.new } 
+
+   
+    context 'when player enters correct input' do
+
+        before do 
+            column_choice = "5"
+            allow(subject).to receive(:gets).and_return(column_choice)
+        end 
+        it 'Prompts player to select column and saves answer' do
+          column = subject.get_column
+          expect(column).to be_between("1", "7" ).inclusive
+        end
     end
+    context 'when colunm selection is not between 1 and 7' do
+        before do 
+            invalid_input = "9"
+            invalid_input_2 = "a"
+            valid_input = "5"
+            allow(subject).to receive(:gets).and_return(invalid_input, invalid_input_2 ,valid_input)
+        end 
+        it 'calls error message' do
+            expect(subject).to receive(:error_message).twice
+            subject.get_column        
+          end
+    end
+
   end
 
   describe '#verify_column_selection' do
