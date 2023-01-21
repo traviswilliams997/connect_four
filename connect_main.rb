@@ -26,10 +26,10 @@ class Game
   end
   def update_board_positon(column, letter)  
     @board.reverse_each {|row|     
-        if row[:"col#{column}"] == 'O'
-            row[:"col#{column}"] = letter
-            return 
-        end
+      if row[:"col#{column}"] == 'O'
+        row[:"col#{column}"] = letter
+        return 
+      end
     }
   end
 
@@ -47,8 +47,7 @@ class Game
       puts "Round over!" if round_over
       return  if round_over
       count += 1
-  end
-
+    end
   end 
   def player_turn(player, num, letter)
     print "Player #{num} "
@@ -59,7 +58,6 @@ class Game
   end
   
   def round_over? 
-  
     return true if check_horizontal
     return true if check_vertical
     return true if check_right_diagonal
@@ -71,30 +69,27 @@ class Game
     run = true
     count = 0
     while run do 
-        if count == 0
-            puts "Welcome to Connect Four!"
-            puts "To win connect four pieces either horizonatally, vertically or diagonally"
-            puts ""
-            self.round_loop
-            puts "Player 1 score is #{@player_one.score}"
-            puts "Player 2 score is #{@player_two.score}"
-
-            count += 1
-        else
-          answer = self.get_answer
-         
-          if answer == 'N'
-            run = false
-          elsif answer == 'Y'
-            self.reset_round
-            self.round_loop
-            puts "Player 1 score is #{@player_one.score}"
-            puts "Player 2 score is #{@player_two.score}"
-            count += 1
-          end
+      if count == 0
+        puts "Welcome to Connect Four!"
+        puts "To win connect four pieces either horizonatally, vertically or diagonally"
+        puts ""
+        self.round_loop
+        puts "Player 1 score is #{@player_one.score}"
+        puts "Player 2 score is #{@player_two.score}"
+        count += 1
+      else
+        answer = self.get_answer
+        if answer == 'N'
+          run = false
+        elsif answer == 'Y'
+          self.reset_round
+          self.round_loop
+          puts "Player 1 score is #{@player_one.score}"
+          puts "Player 2 score is #{@player_two.score}"
+          count += 1
         end
+      end
     end
-
   end
   def reset_round
     @board = create_board
@@ -113,23 +108,22 @@ class Game
 
   
 private
-def verify_answer_selection(answer_selection)
+  def verify_answer_selection(answer_selection)
     if answer_selection == 'Y' || answer_selection == 'N'
       return true 
     end
       false
   end
-def is_full?
+  def is_full?
     is_full = true
-
     @board.each do |row|
         row.each {|key, value| 
-        if value == 'O' 
+          if value == 'O' 
             is_full = false
-        end
-    } 
-      end
-   return is_full
+          end
+        } 
+    end
+    return is_full
   end 
   def check_draw 
     if self.is_full?
@@ -142,8 +136,7 @@ def is_full?
     has_won = [false]
     count = {player1: 0, player2: 0}
     @board.each do |row|
-        row.each {|key, value| check_count(value, count, has_won) 
-        } 
+      row.each {|key, value| check_count(value, count, has_won)}      
     end
     return has_won[0]
   end
@@ -178,7 +171,7 @@ def is_full?
             current_row = @board[row_num]  
             value = current_row[column]
             if col_num < 8 
-                check_count(value, count, has_won)
+              check_count(value, count, has_won)
             end         
             row_num -= 1
             col_num += 1
@@ -196,7 +189,7 @@ def is_full?
     count = {player1: 0, player2: 0}
     column_traversal = 7
     #Offsets starting column
-    while  column_traversal >= 4 do
+    while column_traversal >= 4 do
       #Offsets starting row 
       for row_traversal in 0..2
         row_num = 5 - row_traversal
@@ -209,7 +202,7 @@ def is_full?
             current_row = @board[row_num]  
             value = current_row[column]
             if col_num > 0
-             check_count(value, count, has_won)
+              check_count(value, count, has_won)
             end 
             row_num -= 1
             col_num -= 1
@@ -234,7 +227,6 @@ def is_full?
     elsif value != 'A'
       count[:player1] = 0 
     end
-
     if value == 'B'
       count[:player2] += 1
       if count[:player2] == 4 
@@ -250,13 +242,13 @@ def is_full?
   def error_message
     puts "Input error! Please enter 'Y' or 'N'"
   end
-#end of game class 
+#End of game class 
 end
 
   
 
 class Player
-    attr_accessor :score
+  attr_accessor :score
   def initialize
     @score = 0
   end
@@ -267,28 +259,25 @@ class Player
       column_selection = gets.chomp
       is_verified = verify_column_selection(column_selection)
       return column_selection if is_verified
-     self.error_message
+      self.error_message
     end
   end
-
 
 private 
   def error_message
     puts "Input error! Please enter a number between 1 and 7"
   end
   def verify_column_selection(column_selection)
-      if column_selection == '1' || column_selection == '2' || column_selection == '3' || column_selection == '4' || column_selection == '5' || column_selection == '6' || column_selection == '7' 
-        return true 
-      end
-      
-      false
+    if column_selection == '1' || column_selection == '2' || column_selection == '3' || column_selection == '4' || column_selection == '5' || column_selection == '6' || column_selection == '7' 
+      return true 
+    end
+    false
   end
-#end of player class 
+#End of player class 
 end
 
 =begin
 new_game = Game.new
 new_game.game_loop
-
 =end
 
