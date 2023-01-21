@@ -59,12 +59,39 @@ class Game
   end
   
   def round_over? 
-    return true if check_draw
+  
     return true if check_horizontal
     return true if check_vertical
     return true if check_right_diagonal
     return true if check_left_diagonal
+    return true if check_draw
     return false
+  end
+  def game_loop
+    run = true
+    count = 0
+    while run do 
+        if count == 0
+            puts "Welcome to Connect Four!"
+            puts "To win connect four pieces either horizonatally, vertically or diagonally"
+            puts ""
+            self.round_loop
+            count += 1
+        else
+            puts "Would you like to play again?"
+            puts "Enter 'Y' for yes or 'N' for no"
+            answer = gets.chomp.upcase
+ 
+       
+        if answer == 'N'
+            run = false
+        else
+            self.round_loop
+            count += 1
+        end
+        end
+    end
+
   end
 
 private
@@ -81,7 +108,7 @@ def is_full?
    return is_full
   end 
   def check_draw 
-    if is_full
+    if self.is_full?
       puts "Round is a draw!"
       return true
     end
@@ -201,7 +228,7 @@ class Player
   def get_column
     is_verified = false
     until is_verified do 
-      puts 'Choose a column between 1 and 7'
+      puts 'choose a column between 1 and 7'
       column_selection = gets.chomp
       is_verified = verify_column_selection(column_selection)
       return column_selection if is_verified
@@ -218,9 +245,9 @@ private
     end
 #end of player class 
 end
-=begin
+#=begin
 new_game = Game.new
 new_game.game_loop
 
-=end
+#=end
 
