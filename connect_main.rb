@@ -258,9 +258,11 @@ class Player
 
 private 
   def verify_column_selection(column_selection)
-    if column_selection.to_i >= 1 && column_selection.to_i <= 7
-      return true 
-    end
+      if column_selection == '1' || column_selection == '2' || column_selection == '3' || column_selection == '4' || column_selection == '5' || column_selection == '6' || column_selection == '7' 
+        return true 
+      end
+      
+    
       false
   end
 #end of player class 
