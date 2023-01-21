@@ -48,79 +48,13 @@ RSpec.describe Game do
       end
     end
 
-    describe '#is_full?' do
-        subject(:draw_game) { described_class.new }
-
-        context 'when the board is full' do 
-        it 'returns true' do
-            draw_game.update_board_positon(1,'A')
-            draw_game.update_board_positon(2,'B')
-            draw_game.update_board_positon(3,'A')
-            draw_game.update_board_positon(4,'B')
-            draw_game.update_board_positon(5,'A')
-            draw_game.update_board_positon(6,'B')
-            draw_game.update_board_positon(7,'A')
-
-            draw_game.update_board_positon(1,'B')
-            draw_game.update_board_positon(2,'A')
-            draw_game.update_board_positon(3,'B')
-            draw_game.update_board_positon(4,'A')
-            draw_game.update_board_positon(5,'B')
-            draw_game.update_board_positon(6,'A')
-            draw_game.update_board_positon(7,'B')
-
-            draw_game.update_board_positon(1,'A')
-            draw_game.update_board_positon(2,'B')
-            draw_game.update_board_positon(3,'A')
-            draw_game.update_board_positon(4,'B')
-            draw_game.update_board_positon(5,'A')
-            draw_game.update_board_positon(6,'B')
-            draw_game.update_board_positon(7,'A')
-
-            draw_game.update_board_positon(1,'B')
-            draw_game.update_board_positon(2,'A')
-            draw_game.update_board_positon(3,'B')
-            draw_game.update_board_positon(4,'A')
-            draw_game.update_board_positon(5,'B')
-            draw_game.update_board_positon(6,'A')
-            draw_game.update_board_positon(7,'B')
-
-            draw_game.update_board_positon(1,'A')
-            draw_game.update_board_positon(2,'B')
-            draw_game.update_board_positon(3,'A')
-            draw_game.update_board_positon(4,'B')
-            draw_game.update_board_positon(5,'A')
-            draw_game.update_board_positon(6,'B')
-            draw_game.update_board_positon(7,'A')
-            
-            draw_game.update_board_positon(1,'B')
-            draw_game.update_board_positon(2,'A')
-            draw_game.update_board_positon(3,'B')
-            draw_game.update_board_positon(4,'A')
-            draw_game.update_board_positon(5,'B')
-            draw_game.update_board_positon(6,'A')
-            draw_game.update_board_positon(7,'B')
-                   
-
-            expect(draw_game.is_full?).to be_truthy
-        end
-    end
-    context 'when the board is not full' do 
-        it 'returns false' do
-            draw_game.update_board_positon(1,'B')           
-            expect(draw_game.is_full?).to be_falsey
-        end
-
-    end
-      
-
-    end
+   
 
     describe '#round_over?' do
        subject(:game_over_game) { described_class.new }
         
        context 'when player has won horizontally on first row' do
-         xit 'returns true' do 
+         it 'returns true' do 
             game_over_game.update_board_positon(1,'A')
             game_over_game.update_board_positon(1,'B')
             game_over_game.update_board_positon(2,'A')
@@ -128,11 +62,11 @@ RSpec.describe Game do
             game_over_game.update_board_positon(3,'A')
             game_over_game.update_board_positon(3,'B')
             game_over_game.update_board_positon(4,'A')
-            expect(game_over_game.game_over?).to be_truthy
+            expect(game_over_game.round_over?).to be_truthy
          end
         end
         context 'when player has won horizontally on second row' do 
-         xit 'returns true' do 
+         it 'returns true' do 
             game_over_game.update_board_positon(7,'A')
             game_over_game.update_board_positon(7,'B')
             game_over_game.update_board_positon(6,'A')
@@ -143,12 +77,12 @@ RSpec.describe Game do
             game_over_game.update_board_positon(4,'B')
             game_over_game.update_board_positon(1,'A')
             game_over_game.update_board_positon(4,'B')
-            expect(game_over_game.game_over?).to be_truthy
+            expect(game_over_game.round_over?).to be_truthy
          end
         end 
 
         context 'when player has won vertically on first row' do
-            xit 'returns true' do 
+            it 'returns true' do 
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(5,'B')
                game_over_game.update_board_positon(4,'A')
@@ -156,11 +90,11 @@ RSpec.describe Game do
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(5,'B')
                game_over_game.update_board_positon(4,'A')
-               expect(game_over_game.game_over?).to be_truthy
+               expect(game_over_game.round_over?).to be_truthy
             end
         end
         context 'when player has won vertically on second row' do
-            xit 'returns true' do 
+            it 'returns true' do 
                game_over_game.update_board_positon(5,'A')
                game_over_game.update_board_positon(4,'B')
                game_over_game.update_board_positon(4,'A')
@@ -170,12 +104,12 @@ RSpec.describe Game do
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(5,'B')
                game_over_game.update_board_positon(4,'A')
-               expect(game_over_game.game_over?).to be_truthy
+               expect(game_over_game.round_over?).to be_truthy
             end
         end 
 
         context 'when player has won on right diagonal and on first row' do
-            xit 'returns true ' do 
+            it 'returns true ' do 
                game_over_game.update_board_positon(1,'A')
                game_over_game.update_board_positon(2,'B')
                game_over_game.update_board_positon(2,'A')
@@ -189,11 +123,11 @@ RSpec.describe Game do
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(2,'B')
                game_over_game.update_board_positon(4,'A')
-               expect(game_over_game.game_over?).to be_truthy
+               expect(game_over_game.round_over?).to be_truthy
             end
         end
         context 'when player has won on right diagonal and on second row' do
-            xit 'returns true' do 
+            it 'returns true' do 
                 game_over_game.update_board_positon(2,'A')
                 game_over_game.update_board_positon(1,'B')
                 game_over_game.update_board_positon(3,'A')
@@ -211,11 +145,11 @@ RSpec.describe Game do
                 game_over_game.update_board_positon(4,'A')
                 game_over_game.update_board_positon(2,'B')
                 game_over_game.update_board_positon(4,'A')
-               expect(game_over_game.game_over?).to be_truthy
+               expect(game_over_game.round_over?).to be_truthy
             end
         end 
         context 'when player has won on left diagonal and on first row' do
-            xit 'returns true' do 
+            it 'returns true' do 
                game_over_game.update_board_positon(7,'A')
                game_over_game.update_board_positon(6,'B')
                game_over_game.update_board_positon(6,'A')
@@ -227,11 +161,11 @@ RSpec.describe Game do
                game_over_game.update_board_positon(4,'A')
                game_over_game.update_board_positon(4,'B')
                game_over_game.update_board_positon(4,'A')
-               expect(game_over_game.game_over?).to be_truthy
+               expect(game_over_game.round_over?).to be_truthy
             end
         end
         context 'when player has won on left diagonal and on first row' do
-           xit 'returns true' do 
+           it 'returns true' do 
               game_over_game.update_board_positon(6,'A')
               game_over_game.update_board_positon(7,'B')
               game_over_game.update_board_positon(5,'A')
@@ -247,8 +181,62 @@ RSpec.describe Game do
               game_over_game.update_board_positon(4,'A')
               game_over_game.update_board_positon(4,'B')
               game_over_game.update_board_positon(4,'A')
-              expect(game_over_game.game_over?).to be_truthy
+              expect(game_over_game.round_over?).to be_truthy
             end
+        end
+
+        context 'when there is a draw'
+        it 'returns true' do 
+            subject.update_board_positon(1,'A')
+            subject.update_board_positon(2,'B')
+            subject.update_board_positon(3,'A')
+            subject.update_board_positon(4,'B')
+            subject.update_board_positon(5,'A')
+            subject.update_board_positon(6,'B')
+            subject.update_board_positon(7,'A')
+
+            subject.update_board_positon(1,'B')
+            subject.update_board_positon(2,'A')
+            subject.update_board_positon(3,'B')
+            subject.update_board_positon(4,'A')
+            subject.update_board_positon(5,'B')
+            subject.update_board_positon(6,'A')
+            subject.update_board_positon(7,'B')
+
+            subject.update_board_positon(2,'A')
+            subject.update_board_positon(1,'B')
+            subject.update_board_positon(4,'A')
+            subject.update_board_positon(3,'B')
+            subject.update_board_positon(5,'A')
+            subject.update_board_positon(6,'B')
+            subject.update_board_positon(7,'A')
+
+            subject.update_board_positon(2,'B')
+            subject.update_board_positon(1,'A')
+            subject.update_board_positon(3,'B')
+            subject.update_board_positon(5,'A')
+            subject.update_board_positon(4,'B')
+            subject.update_board_positon(7,'A')
+            subject.update_board_positon(6,'B')
+
+            subject.update_board_positon(1,'A')
+            subject.update_board_positon(2,'B')
+            subject.update_board_positon(3,'A')
+            subject.update_board_positon(6,'B')
+            subject.update_board_positon(4,'A')
+            subject.update_board_positon(7,'B')
+            subject.update_board_positon(5,'A')
+            
+            subject.update_board_positon(1,'B')
+            subject.update_board_positon(2,'A')
+            subject.update_board_positon(3,'B')
+            subject.update_board_positon(4,'A')
+            subject.update_board_positon(5,'B')
+            subject.update_board_positon(6,'A')
+            subject.update_board_positon(7,'B')                   
+
+            expect(subject.round_over?).to be_truthy
+
         end
       end
      
